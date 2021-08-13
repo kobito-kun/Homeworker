@@ -8,6 +8,7 @@ const auth = async (req, res, next) => {
       const contentDecoded = jwt.verify(token, process.env.JWT_TOKEN);
       req.userId = contentDecoded.id;
     }
+    console.log(req.userId)
     next();
   } catch (error) {
     res.status(403).json({ message: "Not authenticated!" });
