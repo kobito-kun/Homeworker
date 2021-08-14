@@ -19,7 +19,7 @@ app.use("/homework", HomeworkRoutes);
 
 
 app.get("/", (_, res) => {
-  User.find({}, (err, result) => {
+  Homework.deleteOne({dateDue: "Invalid Date"}, (err, result) => {
     res.json(result)
   })
 })

@@ -1,6 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
+
+import {loggedIn} from '../../utils';
 
 function Login() {
 
@@ -25,6 +27,10 @@ function Login() {
       }
     })
   }
+
+  useEffect(() => {
+    loggedIn();
+  }, [])
 
   return (
     <div className="max-w-screen overflow-x-hidden min-h-screen bg-gradient-to-br from-gray-300 via-gray-200 to-gray-100  flex justify-center items-center relative">

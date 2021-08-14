@@ -52,7 +52,7 @@ module.exports.createRoute = (req, res) => {
     const newHomework = new Homework({
       'content': content,
       'extra': extra,
-      'dateDue': dateDue,
+      'dateDue': new Date(dateDue),
       'user': req.userId
     });
     newHomework.save();
@@ -74,6 +74,34 @@ module.exports.deleteRoute = (req, res) => {
     Homework.deleteOne({user: req.userId, '_id': _id}, (err, callback) => {
       if(err) return res.status(400).json(err);
       else res.status(200).json(callback);
+    })
+  }catch{
+    return res.status(400).json({"message": "Error."});
+  }
+}
+
+/**
+ * Gets a day's homework.
+ * @param {date} parameter
+ * @returns {Array|Object}
+ */
+
+module.exports.dateRoute = (req, res) => {
+  try{
+    const {date} = req.params;
+    Homework.find({user: req["userId"]}, (err, result) => {
+      if(err) return res.status(400).json({"message": "Error."});
+      else {
+        let output = [];
+        const currentDate = new Date(1629000000000).getTime();
+        result.forEach(item => {
+          const itemDate = new Date(item["dateDue"]).getTime();
+          if(currentDate === itemDate){
+            output.push(item);
+          };
+        });
+        return res.status(200).json(output);
+      }
     })
   }catch{
     return res.status(400).json({"message": "Error."});
