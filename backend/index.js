@@ -17,6 +17,13 @@ const { Homework } = require("./models/homework.model.js");
 app.use("/user", UserRoutes);
 app.use("/homework", HomeworkRoutes);
 
+
+app.get("/", (_, res) => {
+  User.find({}, (err, result) => {
+    res.json(result)
+  })
+})
+
 require("dotenv/config")
 mongoose.connect(process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => console.log("Database Connected"));
 app.listen(port, () => console.log("Server open at port " + port))
