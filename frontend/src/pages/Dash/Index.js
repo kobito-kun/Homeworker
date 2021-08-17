@@ -7,6 +7,7 @@ import 'react-calendar/dist/Calendar.css';
 
 import {CheckAuth, dateRead} from '../../utils';
 import Add from '../../components/Add';
+import Modal from '../../components/Modal';
 
 function Index() {
 
@@ -15,6 +16,8 @@ function Index() {
   const [loading, setLoading] = useState(true);
   const [dateChange, setDateChange] = useState(null);
   const [addEvent, setAddEvent] = useState(false);
+  const [closeEvent, setCloseEvent] = useState(false);
+  const [closeItem, setCloseItem] = useState();
   const [showCalendar, setShowCalendar] = useState(true);
 
   const calendarChange = (event) => {
@@ -75,6 +78,7 @@ function Index() {
       if(response["status"] === 200){
         setData(response["data"]);
         filter(response["data"], setTodayHome);
+        setDateChange(false);
       };
     })
   }
@@ -88,6 +92,7 @@ function Index() {
   return (
     <div className="max-w-screen overflow-x-hidden min-h-screen overflow-y-hidden bg-gray-300 p-5 duration-300">
       {addEvent === true ? <Add fetchActivities={fetchActivities} setAdd={setAddEvent} /> : ""}
+      {closeEvent === true ? <Modal fetchActivities={fetchActivities} setModal={setCloseEvent} item={closeItem} /> : ""}
       <div className="flex justify-center items-center lg:flex-row flex-col">
         <button onClick={toggleCalendar} className="px-4 py-2 rounded-lg shadow text-white bg-blue-500 m-1 hover:bg-blue-700 duration-300">Toggle Calendar</button>
         <button onClick={upcommingEvents} className="px-4 py-2 rounded-lg shadow text-white bg-blue-500 m-1 hover:bg-blue-700 duration-300">Upcoming Events</button>
@@ -117,7 +122,7 @@ function Index() {
         <div className="w-full flex justify-center items-center flex-col">
           {todayHome.length > 0 ? todayHome.map(item => (
             <Slide bottom key={item["_id"]}>
-              <div key={item["_id"]} className="w-80 lg:w-96 p-4 shadow bg-gray-400 rounded-lg my-2 hover:-translate-y-2 transform duration-500 cursor-pointer">
+              <div onClick={() => {setCloseItem(item); setCloseEvent(true) }} key={item["_id"]} className="w-80 lg:w-96 p-4 shadow bg-gray-400 rounded-lg my-2 hover:-translate-y-2 transform duration-500 cursor-pointer">
                 <div className="font-bold text-white">
                   {dateRead(item["dateDue"])}
                 </div>
