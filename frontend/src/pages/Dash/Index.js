@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import Slide from 'react-reveal/Slide';
+import Fade from 'react-reveal/Fade';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 import {CheckAuth, dateRead} from '../../utils';
+import Add from '../../components/Add';
 
 function Index() {
 
@@ -12,10 +14,17 @@ function Index() {
   const [todayHome, setTodayHome] = useState();
   const [loading, setLoading] = useState(true);
   const [dateChange, setDateChange] = useState(null);
+  const [addEvent, setAddEvent] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(true);
 
   const calendarChange = (event) => {
     setDateChange(event);
     filterDay(event, [...data])
+  }
+
+  const upcommingEvents = () => {
+    setDateChange(false);
+    filter(data, setTodayHome);
   }
 
   const filter = (a, s) => {
@@ -52,6 +61,10 @@ function Index() {
     setTodayHome([...o]);
   };
 
+  const toggleCalendar = () => {
+    setShowCalendar(!showCalendar);
+  }
+
   const fetchActivities = () => {
     const headers = {
       headers: {
@@ -73,35 +86,51 @@ function Index() {
   }, [])
 
   return (
-    <div className="max-w-screen overflow-x-hidden min-h-screen overflow-y-hidden bg-gray-300 pt-10">
-      <Slide top>
-        <Calendar className="mx-auto shadow-lg" onChange={calendarChange} />
-      </Slide>
+    <div className="max-w-screen overflow-x-hidden min-h-screen overflow-y-hidden bg-gray-300 p-5 duration-300">
+      {addEvent === true ? <Add fetchActivities={fetchActivities} setAdd={setAddEvent} /> : ""}
+      <div className="flex justify-center items-center lg:flex-row flex-col">
+        <button onClick={toggleCalendar} className="px-4 py-2 rounded-lg shadow text-white bg-blue-500 m-1 hover:bg-blue-700 duration-300">Toggle Calendar</button>
+        <button onClick={upcommingEvents} className="px-4 py-2 rounded-lg shadow text-white bg-blue-500 m-1 hover:bg-blue-700 duration-300">Upcoming Events</button>
+        <button onClick={() => setAddEvent(true)} className="px-4 py-2 rounded-lg shadow text-white bg-blue-500 m-1 hover:bg-blue-700 duration-300">Add Event</button>
+      </div>
+      {showCalendar === true
+      ?
+        <>
+          <h3 className="font-bold uppercase tracking-tight text-3xl text-center my-5">calendar</h3>
+          <Fade>
+            <Calendar value={dateChange} className="mx-auto shadow-lg rounded-lg" onChange={calendarChange} />
+          </Fade>
+        </>
+      :
+        ""
+      }
       <h3 className="font-bold uppercase tracking-tight text-3xl text-center my-5">{dateChange ? dateRead(dateChange) : "upcoming events"}</h3>
       {
       loading
       ?
         <svg className="animate-spin h-20 w-20 text-black mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
       :
       <Slide bottom>
         <div className="w-full flex justify-center items-center flex-col">
           {todayHome.length > 0 ? todayHome.map(item => (
-            <div key={item["_id"]} className="w-80 lg:w-96 p-4 shadow bg-gray-400 rounded-lg my-2 hover:-translate-y-2 transform duration-500 cursor-pointer">
-              <div className="font-bold text-white">
-                {dateRead(item["dateDue"])}
+            <Slide bottom key={item["_id"]}>
+              <div key={item["_id"]} className="w-80 lg:w-96 p-4 shadow bg-gray-400 rounded-lg my-2 hover:-translate-y-2 transform duration-500 cursor-pointer">
+                <div className="font-bold text-white">
+                  {dateRead(item["dateDue"])}
+                </div>
+                <hr className="my-2" />
+                <h2 className="text-3xl text-white font-thin">
+                  {item["content"]}
+                </h2>
+                <p className="font-bold text-gray-100">
+                  {item["extra"]}
+                </p>
               </div>
-              <hr className="my-2" />
-              <h2 className="text-3xl text-white font-thin">
-                {item["content"]}
-              </h2>
-              <p className="font-bold text-gray-100">
-                {item["extra"]}
-              </p>
-            </div>
-          )) : "None"}
+            </Slide>
+          )) : <h1 className="text-9xl select-none font-bold text-white uppercase">NONE</h1>}
         </div>
       </Slide>
       }

@@ -2,7 +2,7 @@ import React, {useRef, useState, useEffect} from 'react';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
 
-import {loggedIn} from '../../utils';
+// import {loggedIn} from '../../utils';
 
 function Login() {
 
@@ -29,7 +29,12 @@ function Login() {
   }
 
   useEffect(() => {
-    loggedIn();
+    // loggedIn();
+
+    if(localStorage.getItem("token") !== null){
+      History.push("/dashboard")
+    }
+    // eslint-disable-next-line
   }, [])
 
   return (
