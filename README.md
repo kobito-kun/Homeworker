@@ -33,7 +33,7 @@ A full stack web application made to keep track of your pending homework with a 
 To run this project locally, you'll need some prerequisites programs.
 
 - [NodeJS](https://nodejs.org/)
-- 
+
 #### Backend Setup
 
 After cloning this repository & have the required programs installed. Open a command prompt on the folder `/backend` and run:
