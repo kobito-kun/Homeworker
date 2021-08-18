@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 
 // import {loggedIn} from '../../utils';
 
@@ -45,6 +45,7 @@ function Login() {
         <input ref={emailInput} className="px-4 py-2 rounded-lg shadow m-1 outline-none" placeholder="Email..." type="email" />
         <input ref={passwordInput} className="px-4 py-2 rounded-lg shadow m-1 outline-none" placeholder="Password..." type="password" />
         <input type="submit" value="Login" className="px-4 py-2 rounded-lg shadow bg-gray-100 text-black m-1" />
+        <Link to="/signup" className="text-xs text-black font-thin">Not registered yet?</Link>
       </form>
       {/* <h1 className={`text-white duration-300 text-5xl lg:text-9xl font-bold tracking-widest select-none absolute`}>LOGIN</h1> */}
     </div>
