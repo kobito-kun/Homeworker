@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import Slide from 'react-reveal/Slide';
 import Fade from 'react-reveal/Fade';
 import axios from 'axios';
@@ -19,6 +20,12 @@ function Index() {
   const [closeEvent, setCloseEvent] = useState(false);
   const [closeItem, setCloseItem] = useState();
   const [showCalendar, setShowCalendar] = useState(true);
+  const History = useHistory();
+
+  const logout = () => {
+    localStorage.clear();
+    History.push('/login')
+  }
 
   const calendarChange = (event) => {
     setDateChange(event);
@@ -139,6 +146,7 @@ function Index() {
         </div>
       </Slide>
       }
+      <button onClick={() => logout()} className="duration-300 fixed bottom-5 right-5 px-4 py-2 bg-red-700 hover:bg-red-600 text-white mx-auto rounded">Logout</button>
     </div>
   )
 }
