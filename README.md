@@ -1,34 +1,11 @@
-## Homeworker Project
+## 📚 Homeworker Project
 
 A full stack web application made to keep track of your pending homework with a super simple UI/UX and calendar.
 
-[Live Preview](https://homework.itskobi.com/) [My Website](https://itskobi.com)
+![Main Page](https://cdn.discordapp.com/attachments/756574459313389624/877445889034182706/unknown.png)
+![Main2](https://cdn.discordapp.com/attachments/756574459313389624/877446015475662898/unknown.png)
 
-## Technologies Used
-
-<div>
-  <div>
-    <h4>Frontend</h4>
-    <ul>
-      <li>HTML5</li>
-      <li>CSS3</li>
-      <li>JavaScript</li>
-      <li>TailwindCSS</li>
-      <li>ReactJS</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Backend</h4>
-    <ul>
-      <li>NodeJS</li>
-      <li>ExpressJS</li>
-      <li>JSON Web Token</li>
-      <li>MongoDB</li>
-    </ul>
-  </div>
-</div>
-
-## Setup
+## 💥 Setup
 
 To run this project locally, you'll need some prerequisites programs.
 
@@ -59,7 +36,7 @@ node
 
 To open the NodeJS CLI. Then run:
 
-```
+```JS
 > require('crypto').randomBytes(64).toString('hex')
 // '09f26e402586e2faa8da4c98a35f1b20d6b033c6097befa8be3486a8295...'
 ```
@@ -68,7 +45,7 @@ In `<MONGODB_URL>` will be where your mongodb connection url will reside.
 
 After all that is done. Run:
 
-```
+```JS
 node app.js
 ```
 
@@ -84,23 +61,10 @@ npm install
 
 Refers to [`package.json`](https://github.com/kobito-kun/Homeworker/blob/master/frontend/package.json) to install the required packages / libraries for this project to be able to run.
 
-After all the above is done. Run
-
 ```
 npm start
 ```
 
 Which will start a local http server at [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/). Done! You have this project running locally on your network!
 
-## How it works
-
-## Example Images
-
-Main Page
-![Main Page](https://cdn.discordapp.com/attachments/756574459313389624/877445889034182706/unknown.png)
-
-Main2 Page
-![Main2](https://cdn.discordapp.com/attachments/756574459313389624/877446015475662898/unknown.png)
-
-Dashboard Page
 ![Dash](https://cdn.discordapp.com/attachments/756574459313389624/877446092491485214/unknown.png)
